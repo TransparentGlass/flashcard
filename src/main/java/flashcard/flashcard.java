@@ -29,6 +29,7 @@ public class flashcard{
         return this.front;
 
     }
-    
+
 
 }
+
