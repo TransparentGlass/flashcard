@@ -1,6 +1,5 @@
 package flashcard;
 
-
 public class deck {
     public flashcard head;
     

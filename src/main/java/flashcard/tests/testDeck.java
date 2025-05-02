@@ -1,5 +1,6 @@
-package flashcard;
+package flashcard.tests;
 
+import flashcard.deck;
 
 public class testDeck{
     public static deck deck = new deck();

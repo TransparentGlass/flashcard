@@ -2,6 +2,8 @@ package flashcard;
 
 
 import flashcard.GUI.testGUI;
+import flashcard.tests.testDeck;
+import flashcard.tests.testFileHandling;
 
 public class Main {
     public static void main(String[] args) {
