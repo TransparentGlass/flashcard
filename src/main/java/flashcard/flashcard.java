@@ -1,8 +1,8 @@
 package flashcard;
 
 public class flashcard{
-    flashcard next;
-    flashcard prev;
+    public flashcard next;
+    public flashcard prev;
     String front;
     String back;
 
