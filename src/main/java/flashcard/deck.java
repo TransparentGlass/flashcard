@@ -3,7 +3,7 @@ package flashcard;
 
 public class deck {
     flashcard head;
-    int count = 0;
+    
 
     void addCard(String question, String answer){
         flashcard newFlashcard = new flashcard(question, answer);
@@ -21,7 +21,7 @@ public class deck {
 
         current.next = newFlashcard;
         newFlashcard.prev = current;
-        return;
+        
 
 
     }
@@ -49,10 +49,12 @@ public class deck {
         }
 
         if (current.next != null){
-            current.next.next.prev = current;
+            if (current.next.next != null){
+                current.next.next.prev = current;
+            }
+            
             current.next = current.next.next;
         }
-        
     }
 
     void insertCard(String question, String answer, int count){
@@ -62,9 +64,12 @@ public class deck {
             return;
         }
 
-        flashcard newFlashcard = new flashcard(question, answer);
+        if (count > listLength() || count < 0){
+            System.out.println("negative number or count is greater than the list");
+            return;
+        }
 
-        
+        flashcard newFlashcard = new flashcard(question, answer);
         flashcard current = this.head;
 
         for (int i = 1; i < count - 1; i++){
@@ -72,8 +77,12 @@ public class deck {
         }
 
         
-
-
+        if (current.next!= null){
+            current.next.prev = newFlashcard;
+        }
+        newFlashcard.next = current.next;
+        newFlashcard.prev = current;
+        current.next = newFlashcard;
     }
 
     String printList(){
@@ -97,11 +106,7 @@ public class deck {
     }
 
     boolean isEmpty(){
-        if (head == null){
-            return true;
-        }
-
-        return false;
+        return head == null;
     }
 
     int listLength(){
