@@ -58,20 +58,23 @@ public class deck {
 
     }
 
-    void printList(){
+    String printList(){
+
+        StringBuilder list = new StringBuilder();
         flashcard current = head;
         int num = 0;
 
         if (isEmpty()){
             System.out.println("list is empty");
-            return;
+            return null;
         }
 
         while (current != null){
             num++;
-            System.out.println(num + ". Question: "+ current.front + "| Answer: " + current.back);
+            list.append(num + ". ").append("Question: ").append(current.front).append("| Answer: ").append(current.back).append("\n");
             current = current.next;
         }
+        return list.toString();
         
     }
 
