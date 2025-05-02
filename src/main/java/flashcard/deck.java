@@ -102,6 +102,10 @@ public class deck {
         return count;        
     }
 
+    public flashcard getHead(){
+        return this.head;
+    }
+
 
     
 }

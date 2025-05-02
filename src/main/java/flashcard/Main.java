@@ -1,8 +1,14 @@
 package flashcard;
 
+import flashcard.GUI.testGUI;
+
 public class Main {
     public static void main(String[] args) {
-        new test();
+        test test = new test();
+        new testGUI(test.getDeck());
+
+        
+
 
 
 

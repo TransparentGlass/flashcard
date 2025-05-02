@@ -1,9 +1,8 @@
 package flashcard;
 
 public class test{
+    public static deck deck = new deck();
     public test(){
-        deck deck = new deck();
-
         deck.deleteCard(1);
 
         deck.addCard("question 1", "answer 1");
@@ -19,5 +18,16 @@ public class test{
         deck.deleteCard(5);
         deck.deleteCard(10);
         System.out.println(deck.printList());
+
+        
+        
+    }
+
+    public flashcard getHead(){
+        return deck.head;
+    }
+
+    public deck getDeck(){
+        return deck;
     }
 }
