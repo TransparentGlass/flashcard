@@ -49,12 +49,30 @@ public class deck {
         }
 
         if (current.next != null){
+            current.next.next.prev = current;
             current.next = current.next.next;
         }
         
     }
 
-    void insertCard(String question, String answer){
+    void insertCard(String question, String answer, int count){
+        
+        if (isEmpty()){
+            System.out.println("list is empty");
+            return;
+        }
+
+        flashcard newFlashcard = new flashcard(question, answer);
+
+        
+        flashcard current = this.head;
+
+        for (int i = 1; i < count - 1; i++){
+            current = current.next;
+        }
+
+        
+
 
     }
 
@@ -71,7 +89,7 @@ public class deck {
 
         while (current != null){
             num++;
-            list.append(num + ". ").append("Question: ").append(current.front).append("| Answer: ").append(current.back).append("\n");
+            list.append(num).append(". ").append("Question: ").append(current.front).append("| Answer: ").append(current.back).append("\n");
             current = current.next;
         }
         return list.toString();
