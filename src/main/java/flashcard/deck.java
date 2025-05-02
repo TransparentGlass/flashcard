@@ -2,10 +2,10 @@ package flashcard;
 
 
 public class deck {
-    flashcard head;
+    public flashcard head;
     
 
-    void addCard(String question, String answer){
+    public void addCard(String question, String answer){
         flashcard newFlashcard = new flashcard(question, answer);
         
         if (isEmpty()){
@@ -26,7 +26,7 @@ public class deck {
 
     }
 
-    void deleteCard(int count){
+    public void deleteCard(int count){
 
         
         if (isEmpty()){
@@ -57,7 +57,7 @@ public class deck {
         }
     }
 
-    void insertCard(String question, String answer, int count){
+    public void insertCard(String question, String answer, int count){
         
         if (isEmpty()){
             System.out.println("list is empty");
@@ -85,7 +85,7 @@ public class deck {
         current.next = newFlashcard;
     }
 
-    String printList(){
+    public String printList(){
 
         StringBuilder list = new StringBuilder();
         flashcard current = head;
@@ -105,11 +105,11 @@ public class deck {
         
     }
 
-    boolean isEmpty(){
+    public boolean isEmpty(){
         return head == null;
     }
 
-    int listLength(){
+    public int listLength(){
         int count = 0;
 
         if (isEmpty()){

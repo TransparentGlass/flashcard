@@ -1,8 +1,10 @@
 package flashcard;
 
-public class test{
+
+public class testDeck{
     public static deck deck = new deck();
-    public test(){
+    
+    public testDeck(){
         deck.deleteCard(1);
 
         deck.addCard("question 1", "answer 1");
@@ -21,10 +23,6 @@ public class test{
 
         
         
-    }
-
-    public flashcard getHead(){
-        return deck.head;
     }
 
     public deck getDeck(){
