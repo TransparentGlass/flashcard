@@ -8,22 +8,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class flashcardFileManager {
-    File file;
-    deck currentDeck;
+    public deck currentDeck;
 
     public flashcardFileManager(deck deck) {
         this.currentDeck = deck;
-    }
-
-    public flashcardFileManager(){
-        //for those without a deck yet
     }
 
     public void createFile(String fileName){
         
         try {
             File newFile = new File("data/"+ fileName+ ".txt");
-            this.file = newFile;
 
             if (newFile.createNewFile()){
                 System.out.println("File successfully created");
@@ -86,6 +80,10 @@ public class flashcardFileManager {
         } else {
             System.out.println("File failed to delete");
         }
+    }
+
+    public deck getDeck(){
+        return this.currentDeck;
     }
 
 

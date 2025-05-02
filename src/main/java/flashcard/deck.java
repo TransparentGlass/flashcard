@@ -27,7 +27,6 @@ public class deck {
 
     public void deleteCard(int count){
 
-        
         if (isEmpty()){
             System.out.println("List is empty");
             return;

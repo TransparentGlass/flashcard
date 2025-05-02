@@ -1,4 +1,4 @@
-package flashcard;
+package flashcard.GUI;
 
 public class menu {
     
