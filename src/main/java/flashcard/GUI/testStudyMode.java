@@ -9,6 +9,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -87,8 +88,12 @@ public class testStudyMode {
         });
 
         nextQuestionButton.addActionListener((ActionEvent e) -> {
-            if (current != null){
-                current = current.next;
+            
+            if (current == null){
+                JOptionPane.showMessageDialog(null, "No more questions available", "End of questions", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            current = current.next;
                 String question = current.getQuestion();
                 String answer = current.getAnswer();
     
@@ -111,8 +116,6 @@ public class testStudyMode {
                 bottomPanel.add(showAnswerButton);
                 studyPanel.revalidate(); 
                 bottomPanel.repaint();
-                
-            }
            
             
             
