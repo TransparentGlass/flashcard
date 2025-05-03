@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import flashcard.deck;
 import flashcard.flashcard;
@@ -33,6 +34,19 @@ public class testStudyMode {
 
         studyPanel = new JPanel();
         studyPanel.setLayout(new BorderLayout());
+
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // Nimbus is not available or failed to load, fallback to default
+            e.printStackTrace();
+        }
+
         
         //the question
         questionLabel = new JLabel(current.getQuestion());
@@ -73,30 +87,33 @@ public class testStudyMode {
         });
 
         nextQuestionButton.addActionListener((ActionEvent e) -> {
-            current = current.next;
-            String question = current.getQuestion();
-            String answer = current.getAnswer();
-
-
-            studyPanel.remove(answerLabel);
-            bottomPanel.remove(nextQuestionButton);
-            
-            answerLabel = new JLabel(answer);
-            answerLabel.setFont(new Font("Serif", Font.PLAIN, 68));
-            answerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            answerLabel.setVerticalAlignment(SwingConstants.CENTER);
-
-            questionLabel = new JLabel(question);
-            questionLabel.setFont(new Font("Serif", Font.PLAIN, 68));
-            questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            questionLabel.setVerticalAlignment(SwingConstants.CENTER);
-
+            if (current != null){
+                current = current.next;
+                String question = current.getQuestion();
+                String answer = current.getAnswer();
+    
+    
+                studyPanel.remove(answerLabel);
+                bottomPanel.remove(nextQuestionButton);
+                
+                answerLabel = new JLabel(answer);
+                answerLabel.setFont(new Font("Serif", Font.PLAIN, 68));
+                answerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                answerLabel.setVerticalAlignment(SwingConstants.CENTER);
+    
+                questionLabel = new JLabel(question);
+                questionLabel.setFont(new Font("Serif", Font.PLAIN, 68));
+                questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                questionLabel.setVerticalAlignment(SwingConstants.CENTER);
+    
+               
+                studyPanel.add(questionLabel, BorderLayout.CENTER);
+                bottomPanel.add(showAnswerButton);
+                studyPanel.revalidate(); 
+                bottomPanel.repaint();
+                
+            }
            
-            studyPanel.add(questionLabel, BorderLayout.CENTER);
-            bottomPanel.add(showAnswerButton);
-            studyPanel.revalidate(); 
-            bottomPanel.repaint();
-
             
             
 

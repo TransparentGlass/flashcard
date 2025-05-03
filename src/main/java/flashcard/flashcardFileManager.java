@@ -31,7 +31,14 @@ public class flashcardFileManager {
         
     }
 
-    public void readFile(String fileName){
+    public deck loadFile(String fileName){
+        
+        //this is assuming that the deck is empty
+        if(!isDeckEmpty(currentDeck)){
+            System.out.println("Deck has contents. Create a new deck");
+            return null;
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader("data/"+ fileName+ ".txt"))){
             
             String line;
@@ -46,12 +53,16 @@ public class flashcardFileManager {
                 }
                 
             }
+
+            return currentDeck;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 
-    public void updateFile(String fileName) {
+    public void saveFile(String fileName) {
         flashcard current = currentDeck.getHead();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/"+ fileName+ ".txt"))) {
@@ -82,8 +93,18 @@ public class flashcardFileManager {
         }
     }
 
+    
+
     public deck getDeck(){
         return this.currentDeck;
+    }
+
+    public boolean isDeckEmpty(deck deck){
+        if (deck.head == null){
+            return true;
+        }
+
+        return false;
     }
 
 
