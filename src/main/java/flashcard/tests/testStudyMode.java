@@ -1,4 +1,4 @@
-package flashcard.GUI;
+package flashcard.tests;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

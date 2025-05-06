@@ -1,9 +1,9 @@
 package flashcard;
 
 
-import flashcard.GUI.testStudyMode;
 import flashcard.tests.testDeck;
 import flashcard.tests.testFileHandling;
+import flashcard.tests.testStudyMode;
 
 public class Main {
     public static void main(String[] args) {
