@@ -28,7 +28,7 @@ public class ButtonCC {
         frame.add(bg);
 
         // Load and scale image
-        ImageIcon icon = new ImageIcon(ButtonCC.class.getResource("/data/img/CNDCatPaw.png"));
+        ImageIcon icon = new ImageIcon("data/img/addImageSprite.png");
         Image scaledImg = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
 
