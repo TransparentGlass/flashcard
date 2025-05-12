@@ -24,6 +24,8 @@ import net.miginfocom.swing.MigLayout;
 public class menu {
     ImageIcon newFileIcon;
     JFrame frame;
+    File[] allDeck = getAllDeck();
+
     public void init() {
         frame = new JFrame("Flashnyan");
         frame.setSize(1000, 800);
@@ -132,13 +134,15 @@ public class menu {
             okButton.addActionListener(ae -> {
                 String deckname = textField.getText().trim();
                 if (!deckname.isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Deck '" + deckname + "' created!");
+                    FileManager openFile = new FileManager(new deck());
+                    openFile.createFile(deckname);
                     dialog.dispose();
+                    refreshFrame();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Deck name cannot be empty.");
                 }
             });
-
+            
             cancelButton.addActionListener(ae -> dialog.dispose());
 
             dialog.setVisible(true);
@@ -155,6 +159,9 @@ public class menu {
         });
 
         ViewAllDeck();
+
+        frame.revalidate();
+        frame.repaint();
 
         frame.setVisible(true);
     }
@@ -242,5 +249,13 @@ public class menu {
         File[] allDecks = directory.listFiles(File::isFile);
 
         return allDecks;
+    }
+
+    public void refreshFrame(){
+        frame.dispose();
+         // Re-add components or regenerate the layout
+        init(); // Assuming this method regenerates the list of decks
+        frame.revalidate(); // Recalculate the layout
+        frame.repaint(); 
     }
 }
