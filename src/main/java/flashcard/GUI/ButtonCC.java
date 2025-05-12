@@ -2,6 +2,7 @@
 package flashcard.GUI;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -23,27 +24,42 @@ public class ButtonCC {
         // BG panel (left side)
         JPanel bg = new JPanel();
         bg.setLayout(null); 
-        bg.setBackground(new Color(255, 209, 220)); // light pink
+        bg.setBackground(new Color(253, 181, 108)); // orange ey
         bg.setBounds(0, 0, 350, 1500);
         frame.add(bg);
 
-        // Load and scale image
-        ImageIcon icon = new ImageIcon("data/img/addImageSprite.png");
-        Image scaledImg = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImg);
+        // Load and scale ADD image
+        ImageIcon addicon = new ImageIcon("data/img/addImg.png");
+        Image scaledaddImg = addicon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon addIcon = new ImageIcon(scaledaddImg);
+
+        // Load and scale DELETE image
+        ImageIcon delicon = new ImageIcon("data/img/deleteImg.png");
+        Image scaleddelImg = delicon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon delIcon = new ImageIcon(scaleddelImg);
+
+        // Load and scale STUDY MORE image
+        ImageIcon studicon = new ImageIcon("data/img/studModeImg.png");
+        Image scaledstudImg = studicon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon studIcon = new ImageIcon(scaledstudImg);
+
+        // Load and scale EXIT image
+        ImageIcon exiticon = new ImageIcon("data/img/exitImg.png");
+        Image scaledexitImg = exiticon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon exitIcon = new ImageIcon(scaledexitImg);
 
         // Create image button
-        JButton addbutton = new JButton(scaledIcon);
+        JButton addbutton = new JButton(addIcon);
         addbutton.setBounds(0, 80, 250, 250);
         addbutton.setBorderPainted(false);
         addbutton.setContentAreaFilled(false);
         addbutton.setFocusPainted(false);
         addbutton.setOpaque(false);
         bg.add(addbutton);
-/*
+
         // Delete Deck Button
-        JButton delbutton = new JButton("Delete Deck");
-        delbutton.setBounds(30, 120, 130, 30);
+        JButton delbutton = new JButton(delIcon);
+        delbutton.setBounds(0, 220, 250, 250);
         delbutton.setBorderPainted(false);
         delbutton.setContentAreaFilled(false);
         delbutton.setFocusPainted(false);
@@ -51,14 +67,23 @@ public class ButtonCC {
         bg.add(delbutton); 
 
         // Study Mode! Button
-        JButton studbutton = new JButton("STUDY MODE");
-        studbutton.setBounds(30, 170, 130, 30);
+        JButton studbutton = new JButton(studIcon);
+        studbutton.setBounds(0, 370, 250, 250);
         studbutton.setBorderPainted(false);
         studbutton.setContentAreaFilled(false);
         studbutton.setFocusPainted(false);
         studbutton.setOpaque(false);
         bg.add(studbutton); 
-*/        
+
+          // Exit Button
+        JButton exitbutton = new JButton(exitIcon);
+        exitbutton.setBounds(0, 500, 250, 250);
+        exitbutton.setBorderPainted(false);
+        exitbutton.setContentAreaFilled(false);
+        exitbutton.setFocusPainted(false);
+        exitbutton.setOpaque(false);
+        bg.add(exitbutton); 
+        
         // Add Deck Button Action
         addbutton.addActionListener(e -> {
             JDialog dialog = new JDialog(frame, true);
@@ -103,7 +128,7 @@ public class ButtonCC {
 
             dialog.setVisible(true);
         });
-/*
+
         // Delete Deck Button Action
         delbutton.addActionListener(e -> {
             JDialog popup = new JDialog(frame, "Delete Raaah", true);
@@ -113,7 +138,7 @@ public class ButtonCC {
             popup.setLocationRelativeTo(frame);
             popup.setVisible(true);
         });
-*/
+
         frame.setVisible(true);
     }
 }
