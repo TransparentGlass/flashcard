@@ -19,7 +19,7 @@ public class FileManager {
     public void createFile(String fileName){
         
         try {
-            File newFile = new File("data/decks/"+ fileName+ ".txt");
+            File newFile = new File("data/decks/"+ fileName + ".txt");
 
             if (newFile.createNewFile()){
                 JOptionPane.showMessageDialog(null, "File Created!", "File creation", JOptionPane.DEFAULT_OPTION);
@@ -75,7 +75,7 @@ public class FileManager {
     public boolean saveFile(String fileName) {
         flashcard current = currentDeck.getHead();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/decks/"+ fileName+ ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/decks/"+ fileName))) {
             for (int i = 0; i < currentDeck.listLength(); i++) {
                 writer.write(current.getQuestion() + " | " + current.getAnswer() + " | " + current.getID());
                 writer.newLine();
@@ -89,7 +89,7 @@ public class FileManager {
 }
 
     public boolean deleteFile(String fileName){
-        String filePath = "data/decks/" + fileName + ".txt";
+        String filePath = "data/decks/" + fileName;
         File currentFile = new File(filePath);
         
         if (!currentFile.exists()){
