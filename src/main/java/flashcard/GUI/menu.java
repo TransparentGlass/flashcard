@@ -23,34 +23,35 @@ public class menu {
     public void init() {
         frame = new JFrame("Flashnyan");
         frame.setSize(1000, 800);
+        frame.getContentPane().setBackground(new Color(255, 246, 231));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null); 
 
         // BG panel (left side)
         JPanel bg = new JPanel();
         bg.setLayout(null); 
-        bg.setBackground(new Color(253, 181, 108)); // orange ey
+        bg.setBackground(new Color(248, 226, 190)); // pastel yellow
         bg.setBounds(0, 0, 350, 1500);
         frame.add(bg);
 
         // Load and scale ADD image
-        ImageIcon addicon = new ImageIcon("data/img/addImg.png");
-        Image scaledaddImg = addicon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon addicon = new ImageIcon("data/img/menu sprites/CreateNewDeck.png");
+        Image scaledaddImg = addicon.getImage().getScaledInstance(280, 100, Image.SCALE_SMOOTH);
         ImageIcon addIcon = new ImageIcon(scaledaddImg);
 
         // Load and scale DELETE image
-        ImageIcon delicon = new ImageIcon("data/img/deleteImg.png");
-        Image scaleddelImg = delicon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon delicon = new ImageIcon("data/img/menu sprites/DeleteDeck.png");
+        Image scaleddelImg = delicon.getImage().getScaledInstance(280, 100, Image.SCALE_SMOOTH);
         ImageIcon delIcon = new ImageIcon(scaleddelImg);
 
         // Load and scale STUDY MORE image
-        ImageIcon studicon = new ImageIcon("data/img/studModeImg.png");
-        Image scaledstudImg = studicon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon studicon = new ImageIcon("data/img/menu sprites/StudyMode.png");
+        Image scaledstudImg = studicon.getImage().getScaledInstance(280, 100, Image.SCALE_SMOOTH);
         ImageIcon studIcon = new ImageIcon(scaledstudImg);
 
         // Load and scale EXIT image
-        ImageIcon exiticon = new ImageIcon("data/img/exitImg.png");
-        Image scaledexitImg = exiticon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon exiticon = new ImageIcon("data/img/menu sprites/Exit.png");
+        Image scaledexitImg = exiticon.getImage().getScaledInstance(280, 100, Image.SCALE_SMOOTH);
         ImageIcon exitIcon = new ImageIcon(scaledexitImg);
 
         ImageIcon fileIcon = new ImageIcon("data/img/menu sprites/file-sprite.png");
@@ -59,7 +60,7 @@ public class menu {
 
         // Create image button
         JButton addbutton = new JButton(addIcon);
-        addbutton.setBounds(0, 80, 250, 250);
+        addbutton.setBounds(0, 80, 280, 100);
         addbutton.setBorderPainted(false);
         addbutton.setContentAreaFilled(false);
         addbutton.setFocusPainted(false);
@@ -68,7 +69,7 @@ public class menu {
 
         // Delete Deck Button
         JButton delbutton = new JButton(delIcon);
-        delbutton.setBounds(0, 220, 250, 250);
+        delbutton.setBounds(0, 220, 280, 150);
         delbutton.setBorderPainted(false);
         delbutton.setContentAreaFilled(false);
         delbutton.setFocusPainted(false);
@@ -77,7 +78,7 @@ public class menu {
 
         // Study Mode! Button
         JButton studbutton = new JButton(studIcon);
-        studbutton.setBounds(0, 370, 250, 250);
+        studbutton.setBounds(0, 370, 280, 150);
         studbutton.setBorderPainted(false);
         studbutton.setContentAreaFilled(false);
         studbutton.setFocusPainted(false);
@@ -86,7 +87,7 @@ public class menu {
 
           // Exit Button
         JButton exitbutton = new JButton(exitIcon);
-        exitbutton.setBounds(0, 500, 250, 250);
+        exitbutton.setBounds(0, 600, 280, 150);
         exitbutton.setBorderPainted(false);
         exitbutton.setContentAreaFilled(false);
         exitbutton.setFocusPainted(false);
@@ -152,6 +153,7 @@ public class menu {
 
         frame.setVisible(true);
     }
+<<<<<<< HEAD
 
     void ViewAllDeck(){
         System.out.println("View all deck has ran");
@@ -197,3 +199,6 @@ public class menu {
         return allDecks;
     }
 }
+=======
+}
+>>>>>>> 0823348a476c3edd9df8f52c019371dd2547dae2

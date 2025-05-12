@@ -2,8 +2,13 @@ package flashcard.GUI;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.Image;
+import java.awt.Color;
+import java.awt.Font;
 
+import javax.swing.border.TitledBorder;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -37,11 +42,13 @@ public final class deckMode extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        
-
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout("fillx, insets 20"));
+<<<<<<< HEAD
+=======
+        mainPanel.setBackground(new Color(255, 246, 231));
+>>>>>>> 0823348a476c3edd9df8f52c019371dd2547dae2
 
         scrollPane = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
@@ -66,12 +73,28 @@ public final class deckMode extends JFrame {
         cardPanel.setLayout(new MigLayout("fillx, insets 10", "[grow, left] 20 [grow, right]"));
 
         flashcard currentCard = card;
-       
-        JButton deleteFCButton = new JButton("Delete");
 
+       //Delete Button
+        ImageIcon delIcon = new ImageIcon("data/img/2.png");
+        Image delImg = delIcon.getImage().getScaledInstance(100, 35, Image.SCALE_SMOOTH);
+        ImageIcon del2Icon = new ImageIcon(delImg);
+
+        JButton deleteFCButton = new JButton(del2Icon);
+        deleteFCButton.setBorderPainted(false);
+        deleteFCButton.setContentAreaFilled(false);
+        deleteFCButton.setFocusPainted(false);
+        deleteFCButton.setOpaque(false);
+
+        //Question Text Area
         JTextArea questionsArea = new JTextArea(currentCard.getQuestion());
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(
+        BorderFactory.createLineBorder(new Color(148, 120, 113), 3), "Question");
+        titledBorder.setTitleFont(new Font("SansSerif", Font.BOLD, 16));
+
+        questionsArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        questionsArea.setBorder(titledBorder);
+        questionsArea.setWrapStyleWord(true);
         questionsArea.setLineWrap(true);
-        questionsArea.setBorder(BorderFactory.createTitledBorder("Question"));
 
         questionsArea.addFocusListener(new FocusAdapter(){
             @Override
@@ -85,9 +108,17 @@ public final class deckMode extends JFrame {
             }
         });
 
+
+        //Answer Text Area
         JTextArea answersArea = new JTextArea(currentCard.getAnswer());
+        TitledBorder titleddBorder = BorderFactory.createTitledBorder(
+        BorderFactory.createLineBorder(new Color(148, 120, 113), 3), "Answer");
+        titleddBorder.setTitleFont(new Font("SansSerif", Font.BOLD, 16));
+
+        answersArea.setBorder(titleddBorder);
+        answersArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        answersArea.setWrapStyleWord(true);
         answersArea.setLineWrap(true);
-        answersArea.setBorder(BorderFactory.createTitledBorder("Answer"));
 
         answersArea.addFocusListener(new FocusAdapter(){
             @Override
@@ -205,8 +236,17 @@ public final class deckMode extends JFrame {
 
     
     void UtilityUI(){
-        //to be made
-        JButton SaveButton = new JButton("Save");
+
+        //Save Button
+        ImageIcon saveIcon = new ImageIcon("data/img/3.png");
+        Image saveImg = saveIcon.getImage().getScaledInstance(100, 35, Image.SCALE_SMOOTH);
+        ImageIcon save3Icon = new ImageIcon(saveImg);
+
+        JButton SaveButton = new JButton(save3Icon);
+        SaveButton.setBorderPainted(false);
+        SaveButton.setContentAreaFilled(false);
+        SaveButton.setFocusPainted(false);
+        SaveButton.setOpaque(false);
 
         SaveButton.addActionListener(s -> {
             
@@ -218,8 +258,17 @@ public final class deckMode extends JFrame {
                 JOptionPane.showMessageDialog(null, "File not saved!", "Error save file", JOptionPane.ERROR_MESSAGE);
             }
         });
+        //Add Button
+        ImageIcon addIcon = new ImageIcon("data/img/1.png");
+        Image addImg = addIcon.getImage().getScaledInstance(100, 35, Image.SCALE_SMOOTH);
+        ImageIcon add1Icon = new ImageIcon(addImg);
 
-        JButton addFlashcardButton = new JButton("Add");
+        JButton addFlashcardButton = new JButton(add1Icon);
+        addFlashcardButton.setBorderPainted(false);
+        addFlashcardButton.setContentAreaFilled(false);
+        addFlashcardButton.setFocusPainted(false);
+        addFlashcardButton.setOpaque(false);
+
 
         addFlashcardButton.addActionListener(ae -> {
             flashcard currentCard = currentDeck.getTail();
@@ -237,8 +286,8 @@ public final class deckMode extends JFrame {
         );
 
         JPanel barPanel = new JPanel();
-        barPanel.setLayout(new MigLayout("debug", "[][][][][][]"));
-
+        barPanel.setLayout(new MigLayout("", "[][][][][][]"));
+        barPanel.setBackground(new Color(255, 246, 231));
         
 
         barPanel.add(SaveButton);
