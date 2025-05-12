@@ -153,7 +153,6 @@ public class menu {
 
         frame.setVisible(true);
     }
-<<<<<<< HEAD
 
     void ViewAllDeck(){
         System.out.println("View all deck has ran");
@@ -199,6 +198,3 @@ public class menu {
         return allDecks;
     }
 }
-=======
-}
->>>>>>> 0823348a476c3edd9df8f52c019371dd2547dae2

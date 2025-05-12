@@ -1,12 +1,11 @@
 package flashcard.GUI;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.Image;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-import javax.swing.border.TitledBorder;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 import flashcard.FileManager;
 import flashcard.deck;
@@ -45,10 +45,6 @@ public final class deckMode extends JFrame {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout("fillx, insets 20"));
-<<<<<<< HEAD
-=======
-        mainPanel.setBackground(new Color(255, 246, 231));
->>>>>>> 0823348a476c3edd9df8f52c019371dd2547dae2
 
         scrollPane = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
