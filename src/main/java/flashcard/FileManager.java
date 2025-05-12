@@ -41,7 +41,7 @@ public class FileManager {
             return null;
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("data/decks/"+ fileName+ ".txt"))){
+        try (BufferedReader reader = new BufferedReader(new FileReader("data/decks/"+ fileName))){
             
             String line;
             while ((line = reader.readLine()) != null){

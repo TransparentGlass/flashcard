@@ -2,6 +2,7 @@
 package flashcard.GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.io.File;
@@ -13,8 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import flashcard.FileManager;
+import flashcard.deck;
 import net.miginfocom.swing.MigLayout;
     
 public class menu {
@@ -25,6 +29,7 @@ public class menu {
         frame.setSize(1000, 800);
         frame.getContentPane().setBackground(new Color(255, 246, 231));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setLayout(null); 
 
         // BG panel (left side)
@@ -55,7 +60,7 @@ public class menu {
         ImageIcon exitIcon = new ImageIcon(scaledexitImg);
 
         ImageIcon fileIcon = new ImageIcon("data/img/menu sprites/file-sprite.png");
-        Image scaledFileIcon = fileIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        Image scaledFileIcon = fileIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         newFileIcon = new ImageIcon(scaledFileIcon);
 
         // Create image button
@@ -154,35 +159,76 @@ public class menu {
         frame.setVisible(true);
     }
 
-    void ViewAllDeck(){
-        System.out.println("View all deck has ran");
-        JPanel deckPanel = new JPanel();
-        
-        deckPanel.setLayout(new MigLayout("inset 20, debug", "[]10[]10[]10[]10[]"));
-        File[] DeckList = getAllDeck();
+   void ViewAllDeck() {
+    System.out.println("View all deck has ran");
 
-        for(File file: DeckList){
-            JPanel filePanel = new JPanel();
-            filePanel.setLayout(new MigLayout("debug", "[]", "[]"));
-            JButton fileIcon = new JButton(newFileIcon);
-            JLabel fileName = new JLabel(file.getName());
+    // Create the main deck panel
+    JPanel deckPanel = new JPanel();
+    deckPanel.setLayout(null); // Null layout
+    deckPanel.setBounds(350, 0, 650, 1000); // Set location and size of the panel
 
-            filePanel.add(fileIcon, "grow, h 40!, w 40!, wrap");
-            filePanel.add(fileName);
-            
-            deckPanel.add(filePanel);
-            deckPanel.revalidate();
-            deckPanel.repaint();
+    // Get the list of files (Decks)
+    File[] DeckList = getAllDeck();
 
+    int x = 30; // Starting x position
+    int y = 0; // Starting y position
+    int panelWidth = 130; // Width of each file panel
+    int panelHeight = 150; // Height of each file panel
+    int gap = 0; // Gap between panels
 
+    // Iterate through each file and create its corresponding panel
+    for (File file : DeckList) {
+        System.out.println(file.getName());
 
+        // Create a panel for each file
+        JPanel filePanel = new JPanel();
+        filePanel.setLayout(new MigLayout("inset 50 20 50 20, gap 0", "[grow]", "[center]")); // Null layout for the file panel
+        filePanel.setBounds(x, y, panelWidth, panelHeight); // Position each file panel 
+
+        // Create the file icon button
+        JButton fileIcon = new JButton(newFileIcon); // Replace "Icon" with your image icon
+        fileIcon.setOpaque(false); // Makes the button transparent
+        fileIcon.setContentAreaFilled(false); // Removes the content area
+        fileIcon.setBorderPainted(false); // Removes the border
+        fileIcon.setFocusPainted(true);
+
+        fileIcon.addActionListener(e -> {
+            deck newDeck = new deck();
+            FileManager openFile = new FileManager(newDeck);
+            openFile.loadFile(file.getName());
+            deckMode newdDeckMode = new deckMode(openFile.getDeck(), file.getName());
+        });
+
+        // Create the file name label
+        JTextArea fileName = new JTextArea(file.getName());
+        fileName.setLineWrap(true); // Enable line wrapping
+        fileName.setWrapStyleWord(true); // Wrap at word boundaries
+        fileName.setEditable(false); // Make it non-editable like a label
+        fileName.setOpaque(false); // Make the background transparent
+        fileName.setPreferredSize(new Dimension(80, 40)); // Set preferred size
+
+        // Add components to the file panel
+        filePanel.add(fileIcon, "wrap");
+        filePanel.add(fileName, "align center");
+
+        // Add the file panel to the main deck panel
+        deckPanel.add(filePanel);
+
+        // Update x and y for the next panel
+        x += panelWidth + gap;
+        if (x + panelWidth > deckPanel.getWidth()) { // Move to the next row if out of bounds
+            x = 30;
+            y += panelHeight + gap;
         }
-
-        frame.add(deckPanel);
-        frame.revalidate();
-        frame.repaint();
-
     }
+
+    // Add the deck panel to the frame
+    frame.add(deckPanel);
+
+    // Refresh the frame
+    frame.revalidate();
+    frame.repaint();
+}
 
     public File[] getAllDeck(){
         String filePath = "data/decks/";

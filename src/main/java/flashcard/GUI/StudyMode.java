@@ -1,4 +1,4 @@
-package flashcard.tests;
+package flashcard.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -18,14 +18,14 @@ import flashcard.deck;
 import flashcard.flashcard;
 
 
-public class testStudyMode {
+public class StudyMode {
     private final JFrame frame;
     private JPanel studyPanel;
         flashcard current;
         JLabel questionLabel;
         JLabel answerLabel;
     
-    public testStudyMode(deck deck){
+    public StudyMode(deck deck){
         frame = new JFrame("Study mode");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

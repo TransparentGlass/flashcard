@@ -1,5 +1,6 @@
 package flashcard.GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -41,6 +42,7 @@ public final class deckMode extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+        setLayout(new BorderLayout());
 
 
         mainPanel = new JPanel();
@@ -230,6 +232,16 @@ public final class deckMode extends JFrame {
         System.out.println("Deck loaded successfully.");
     }
 
+    void saveDeck(){
+        FileManager file = new FileManager(this.currentDeck);
+            if (file.saveFile(FileName)){
+                System.out.println("File saved successfully");
+                JOptionPane.showMessageDialog(null, "File is saved!", "Save file", JOptionPane.DEFAULT_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(null, "File not saved!", "Error save file", JOptionPane.ERROR_MESSAGE);
+            }
+    }
+
     
     void UtilityUI(){
 
@@ -245,14 +257,7 @@ public final class deckMode extends JFrame {
         SaveButton.setOpaque(false);
 
         SaveButton.addActionListener(s -> {
-            
-            FileManager file = new FileManager(this.currentDeck);
-            if (file.saveFile(FileName)){
-                System.out.println("File saved successfully");
-                JOptionPane.showMessageDialog(null, "File is saved!", "Save file", JOptionPane.DEFAULT_OPTION);
-            } else {
-                JOptionPane.showMessageDialog(null, "File not saved!", "Error save file", JOptionPane.ERROR_MESSAGE);
-            }
+            saveDeck();
         });
         //Add Button
         ImageIcon addIcon = new ImageIcon("data/img/1.png");
@@ -268,7 +273,10 @@ public final class deckMode extends JFrame {
 
         addFlashcardButton.addActionListener(ae -> {
             flashcard currentCard = currentDeck.getTail();
-            if (currentCard.getQuestion().isEmpty() || currentCard.getAnswer().isEmpty()) {
+
+            if (currentCard == null){
+                addFlashcard();
+            } else if (currentCard.getQuestion().isEmpty() || currentCard.getAnswer().isEmpty()) {
                 JOptionPane.showMessageDialog(
                     null,
                     "Answer and/or question must not be empty before adding a new card",
@@ -281,14 +289,35 @@ public final class deckMode extends JFrame {
         }
         );
 
+        JButton StudyModeButton = new JButton("Study Mode");
+
+        StudyModeButton.addActionListener(ae -> {
+            if (this.currentDeck.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Error! Current deck is empty!", "Empty deck", JOptionPane.ERROR_MESSAGE);
+                
+            } else {
+                saveDeck();
+                StudyMode goStudyMode = new StudyMode(this.currentDeck);
+            }
+            
+        }
+        );
+
+
+
         JPanel barPanel = new JPanel();
-        barPanel.setLayout(new MigLayout("", "[][][][][][]"));
+        barPanel.setLayout(new MigLayout("gap 0", "[][][][][][]", "[]"));
         barPanel.setBackground(new Color(255, 246, 231));
         
 
         barPanel.add(SaveButton);
         barPanel.add(addFlashcardButton);
-        mainPanel.add(barPanel,  "north");
+        barPanel.add(StudyModeButton, "cell 4 0");
+        add(barPanel, BorderLayout.NORTH);
+
+        revalidate();
+        repaint();
+
 
 
 

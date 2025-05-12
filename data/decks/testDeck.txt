@@ -1,4 +1,4 @@
-Do you love me? |  tung tung tung sahur| tung tung tung sahur
-Are you a hotdog? |  cappucino assasanino| cappucino assasanino
-question 3 | answer 3|answer 3
-question 4 | answer 4|answer 4
+Do you love me? |  tung tung tung sahur| 1
+Are you a hotdog? |  cappucino assasanino| 2
+question 3 | answer 3| 3
+question 4 | answer 4| 4
