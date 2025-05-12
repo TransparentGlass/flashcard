@@ -4,7 +4,7 @@ package flashcard;
 public class flashcard{
     public flashcard next;
     public flashcard prev;
-    int count;
+    int ID;
     String front;
     String back;
 
@@ -13,7 +13,7 @@ public class flashcard{
         this.prev = null;
         this.front = front;
         this.back = back;
-        this.count = count;
+        this.ID = count;
     }
 
     public void setQuestion(String q){
@@ -24,12 +24,12 @@ public class flashcard{
         this.back = a;
     }
 
-    public void setCount(int a){
-        this.count = a;
+    public void setID(int a){
+        this.ID = a;
     }
 
-    public int getCount(){
-        return this.count;
+    public int getID(){
+        return this.ID;
     }
 
 

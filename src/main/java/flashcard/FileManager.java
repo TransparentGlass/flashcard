@@ -72,17 +72,19 @@ public class FileManager {
         return null;
     }
 
-    public void saveFile(String fileName) {
+    public boolean saveFile(String fileName) {
         flashcard current = currentDeck.getHead();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/decks/"+ fileName+ ".txt"))) {
             for (int i = 0; i < currentDeck.listLength(); i++) {
-                writer.write(current.getQuestion() + " | " + current.getAnswer() + " | " + current.getCount());
+                writer.write(current.getQuestion() + " | " + current.getAnswer() + " | " + current.getID());
                 writer.newLine();
                 current = current.next;
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 }
 

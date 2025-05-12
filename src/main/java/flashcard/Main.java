@@ -16,7 +16,7 @@ public class Main {
         
         // testStudyMode newtest = new testStudyMode(file.getDeck());
 
-        deckMode newDeckMode = new deckMode(file.getDeck());
+        deckMode newDeckMode = new deckMode(file.getDeck(), "LatestTest" );
 
         
 

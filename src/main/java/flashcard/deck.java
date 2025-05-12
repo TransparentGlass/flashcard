@@ -1,5 +1,7 @@
 package flashcard;
 
+import java.util.ArrayList;
+
 
 
 public class deck {
@@ -81,7 +83,7 @@ public class deck {
         flashcard current = head;
 
         // Traverse the linked list to find the card
-        while (current != null && current.count != count) {
+        while (current != null && current.ID != count) {
             current = current.next;
         }
 
@@ -131,7 +133,7 @@ public class deck {
         }
 
         // Case 2: If the card should be inserted at the beginning of the list
-        if (id <= head.count) {
+        if (id <= head.ID) {
             System.out.println("Inserting card at the beginning.");
             newFlashcard.next = head;
             head.prev = newFlashcard;
@@ -139,7 +141,7 @@ public class deck {
             return;
         }
 
-        if (id >= tail.count) {
+        if (id >= tail.ID) {
         System.out.println("Inserting card at the end.");
         newFlashcard.prev = tail;
         tail.next = newFlashcard;
@@ -152,7 +154,7 @@ public class deck {
         flashcard current = head;
 
         // Traverse the list to find the correct position
-        while (current != null && current.count < id) {
+        while (current != null && current.ID < id) {
             current = current.next;
         }
 
@@ -177,7 +179,7 @@ public class deck {
 
         // Traverse the list to find the flashcard with the given ID
         while (current != null) {
-            if (current.count == id) {
+            if (current.ID == id) {
                 return current; // Flashcard found
             }
             current = current.next;
@@ -201,7 +203,7 @@ public class deck {
 
         while (current != null){
             num++;
-            list.append(num).append(". ").append("Question: ").append(current.front).append("| Answer: ").append(current.back).append(" | id: ").append(current.count).append("\n");
+            list.append(num).append(". ").append("Question: ").append(current.front).append("| Answer: ").append(current.back).append(" | id: ").append(current.ID).append("\n");
             current = current.next;
         }
         return list.toString();
@@ -215,9 +217,6 @@ public class deck {
     public int listLength(){
         int count = 0;
 
-        if (isEmpty()){
-            return 0;
-        }
 
         flashcard current= head;
         while(current != null){
@@ -228,6 +227,22 @@ public class deck {
         return count;        
     }
 
+    public ArrayList<Integer> listID(){
+        flashcard current = this.head;
+        ArrayList<Integer> IDList = new ArrayList<>();
+
+        if (isEmpty()){
+            return IDList;
+        }
+
+        
+        while (current != null){
+            IDList.add(current.getID());
+            current = current.next;
+        }
+        
+        return IDList;
+    }
     public flashcard getHead(){
         return this.head;
     }
