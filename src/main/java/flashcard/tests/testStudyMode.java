@@ -89,12 +89,13 @@ public class testStudyMode {
 
         nextQuestionButton.addActionListener((ActionEvent e) -> {
             
-            if (current == null){
-                JOptionPane.showMessageDialog(null, "No more questions available", "End of questions", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             current = current.next;
-                String question = current.getQuestion();
+            String question = null;
+                try {
+                    question = current.getQuestion();
+                } catch (java.lang.NullPointerException error) {
+                    JOptionPane.showMessageDialog(null, "No more questions available", "End of questions", JOptionPane.ERROR_MESSAGE);
+                }
                 String answer = current.getAnswer();
     
     
@@ -121,10 +122,7 @@ public class testStudyMode {
             
 
         });
-
-       
-        
-        
+      
         frame.add(studyPanel);
         frame.revalidate();
         frame.repaint();

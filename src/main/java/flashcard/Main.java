@@ -1,20 +1,20 @@
 package flashcard;
 
 
+import flashcard.GUI.jilMenu;
 import flashcard.tests.testDeck;
-import flashcard.tests.testFileHandling;
 import flashcard.tests.testStudyMode;
 
 public class Main {
     public static void main(String[] args) {
+ 
+        jilMenu menu = new jilMenu();
+
+        menu.init();
+
+        testDeck newDeck = new testDeck();
         
-        testDeck test = new testDeck();
-        deck newDeck = new deck();
-        testFileHandling file = new testFileHandling(newDeck);
-
-        new testStudyMode(file.getLoadedDeck());
-
-        // testDeck newDeck = new testDeck();
+        testStudyMode newtest = new testStudyMode(newDeck.getDeck());
         
         
 
