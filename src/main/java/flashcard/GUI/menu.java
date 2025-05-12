@@ -4,6 +4,7 @@ package flashcard.GUI;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,9 +15,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import net.miginfocom.swing.MigLayout;
+    
 public class menu {
+    ImageIcon newFileIcon;
+    JFrame frame;
     public void init() {
-        JFrame frame = new JFrame("Flashcard Study Thing");
+        frame = new JFrame("Flashnyan");
         frame.setSize(1000, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null); 
@@ -47,6 +52,10 @@ public class menu {
         ImageIcon exiticon = new ImageIcon("data/img/exitImg.png");
         Image scaledexitImg = exiticon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         ImageIcon exitIcon = new ImageIcon(scaledexitImg);
+
+        ImageIcon fileIcon = new ImageIcon("data/img/menu sprites/file-sprite.png");
+        Image scaledFileIcon = fileIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        newFileIcon = new ImageIcon(scaledFileIcon);
 
         // Create image button
         JButton addbutton = new JButton(addIcon);
@@ -139,6 +148,52 @@ public class menu {
             popup.setVisible(true);
         });
 
+        ViewAllDeck();
+
         frame.setVisible(true);
+    }
+
+    void ViewAllDeck(){
+        System.out.println("View all deck has ran");
+        JPanel deckPanel = new JPanel();
+        
+        deckPanel.setLayout(new MigLayout("inset 20, debug", "[]10[]10[]10[]10[]"));
+        File[] DeckList = getAllDeck();
+
+        for(File file: DeckList){
+            JPanel filePanel = new JPanel();
+            filePanel.setLayout(new MigLayout("debug", "[]", "[]"));
+            JButton fileIcon = new JButton(newFileIcon);
+            JLabel fileName = new JLabel(file.getName());
+
+            filePanel.add(fileIcon, "grow, h 40!, w 40!, wrap");
+            filePanel.add(fileName);
+            
+            deckPanel.add(filePanel);
+            deckPanel.revalidate();
+            deckPanel.repaint();
+
+
+
+        }
+
+        frame.add(deckPanel);
+        frame.revalidate();
+        frame.repaint();
+
+    }
+
+    public File[] getAllDeck(){
+        String filePath = "data/decks/";
+        File directory = new File(filePath);
+
+       if (!directory.exists() || !directory.isDirectory()) {
+        System.err.println("Directory does not exist or is invalid: " + filePath);
+        return new File[0]; // Return empty array
+        }
+
+        File[] allDecks = directory.listFiles(File::isFile);
+
+        return allDecks;
     }
 }

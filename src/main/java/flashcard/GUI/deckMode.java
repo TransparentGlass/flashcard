@@ -41,7 +41,7 @@ public final class deckMode extends JFrame {
 
 
         mainPanel = new JPanel();
-        mainPanel.setLayout(new MigLayout("fillx, insets 20, debug"));
+        mainPanel.setLayout(new MigLayout("fillx, insets 20"));
 
         scrollPane = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
@@ -63,7 +63,7 @@ public final class deckMode extends JFrame {
     
     void CreateFlashcard(flashcard card){
         JPanel cardPanel = new JPanel();
-        cardPanel.setLayout(new MigLayout("fillx, insets 10, debug", "[grow, left] 20 [grow, right]"));
+        cardPanel.setLayout(new MigLayout("fillx, insets 10", "[grow, left] 20 [grow, right]"));
 
         flashcard currentCard = card;
        
@@ -79,6 +79,7 @@ public final class deckMode extends JFrame {
                 questionsArea.selectAll();
             }
 
+            @Override
             public void focusLost(FocusEvent e){
                 questionsArea.select(0, 0);
             }
@@ -93,7 +94,8 @@ public final class deckMode extends JFrame {
             public void focusGained(FocusEvent e){
                 answersArea.selectAll();
             }
-
+            
+            @Override
             public void focusLost(FocusEvent e){
                 answersArea.select(0, 0);
             }

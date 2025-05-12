@@ -1,22 +1,22 @@
 package flashcard;
 
-import flashcard.GUI.deckMode;
+import flashcard.GUI.menu;
 
 public class Main {
     public static void main(String[] args) {
  
-        // menu menu = new menu();
-        // menu.init();
-        FileManager file = new FileManager(new deck());
+        menu menu = new menu();
+        menu.init();
+        // FileManager file = new FileManager(new deck());
 
-        file.loadFile("LatestTest");
+        // file.loadFile("LatestTest");
 
         
 
         
         // testStudyMode newtest = new testStudyMode(file.getDeck());
 
-        deckMode newDeckMode = new deckMode(file.getDeck(), "LatestTest" );
+        // deckMode newDeckMode = new deckMode(file.getDeck(), "LatestTest" );
 
         
 
