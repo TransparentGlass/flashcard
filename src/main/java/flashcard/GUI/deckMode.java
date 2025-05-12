@@ -303,16 +303,23 @@ public final class deckMode extends JFrame {
         }
         );
 
+        JButton backButton = new JButton("Back to menu");
+
+        backButton.addActionListener(b -> {
+            dispose();
+        });
+
 
 
         JPanel barPanel = new JPanel();
-        barPanel.setLayout(new MigLayout("gap 0", "[][][][][][]", "[]"));
+        barPanel.setLayout(new MigLayout("gap 20", "[][][][][][]", "[]"));
         barPanel.setBackground(new Color(255, 246, 231));
         
 
         barPanel.add(SaveButton);
         barPanel.add(addFlashcardButton);
         barPanel.add(StudyModeButton, "cell 4 0");
+        barPanel.add(backButton);
         add(barPanel, BorderLayout.NORTH);
 
         revalidate();
