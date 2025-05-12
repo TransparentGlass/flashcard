@@ -1,12 +1,13 @@
 package flashcard;
 
 import flashcard.GUI.deckMode;
+//import flashcard.GUI.menu;
 
 public class Main {
     public static void main(String[] args) {
  
-        // menu menu = new menu();
-        // menu.init();
+        //menu menu = new menu();
+        //menu.init();
         FileManager file = new FileManager(new deck());
 
         file.loadFile("LatestTest");
