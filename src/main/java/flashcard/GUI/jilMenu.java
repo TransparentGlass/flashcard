@@ -29,6 +29,7 @@ public class jilMenu {
     public void init(){
         JFrame frame = new JFrame("Flashcard Study Thing");
         frame.setSize(1000, 800);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null); 
 
