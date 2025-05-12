@@ -7,12 +7,17 @@ public class Main {
  
         // menu menu = new menu();
         // menu.init();
+        FileManager file = new FileManager(new deck());
 
-        // testDeck newDeck = new testDeck();
+        file.loadFile("LatestTest");
+
         
-        // testStudyMode newtest = new testStudyMode(newDeck.getDeck());
 
-        deckMode newDeckMode = new deckMode();
+        
+        // testStudyMode newtest = new testStudyMode(file.getDeck());
+
+        deckMode newDeckMode = new deckMode(file.getDeck());
+
         
 
         

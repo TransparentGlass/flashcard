@@ -6,11 +6,10 @@ import flashcard.deck;
 public class testFileHandling {
     deck currentDeck;
     public testFileHandling(deck deck) {
-        deck newdeck = new deck();
-        FileManager fileManager = new FileManager(newdeck);
-        String fileName = "testDeck";
-        this.currentDeck = fileManager.loadFile(fileName);
-        
+        FileManager fileManager = new FileManager(deck);
+        fileManager.createFile("LatestTest");
+        fileManager.saveFile("LatestTest");
+
     } 
 
     public deck getLoadedDeck(){

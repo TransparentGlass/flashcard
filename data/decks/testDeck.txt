@@ -1,9 +1,4 @@
-Do you love me? |  tung tung tung sahur
-Are you a hotdog? |  cappucino assasanino
-What is the number one reason you love me? | Because it's you
-What is the powerhouse of the cell | mitochondria
-question 5 | answer 5
-question 6 | answer 6
-question 7 | answer 7
-question 8 | answer 8
-question 9 | answer 9
+Do you love me? |  tung tung tung sahur| tung tung tung sahur
+Are you a hotdog? |  cappucino assasanino| cappucino assasanino
+question 3 | answer 3|answer 3
+question 4 | answer 4|answer 4
