@@ -17,11 +17,10 @@ public final class deckMode extends JFrame {
     private JPanel mainPanel;
     private JScrollPane scrollPane;
     private int cardCount;
-    private JPanel cardPanel;
 
     public deckMode(deck deck){
         this.currentDeck = deck;
-        cardCount = currentDeck.listLength();
+        this.cardCount = currentDeck.listLength();
         init(currentDeck);
     }
 
@@ -33,11 +32,7 @@ public final class deckMode extends JFrame {
 
 
         mainPanel = new JPanel();
-        mainPanel.setLayout(new MigLayout("fillx, insets 30" ));
-
-        cardPanel = new JPanel();
-        cardPanel.setLayout(new MigLayout("fillx, insets 30, debug", "[grow, left] 20 [grow, right]"));
-        
+        mainPanel.setLayout(new MigLayout("fillx, insets 20, debug"));
 
         scrollPane = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
@@ -45,7 +40,6 @@ public final class deckMode extends JFrame {
         add(scrollPane);
         
         loadDeckToUI();
-        addFlashcard();
 
         System.out.println(cardCount);
 
@@ -54,100 +48,12 @@ public final class deckMode extends JFrame {
         revalidate();
 
     }
+    
+    void CreateFlashcard(flashcard card){
+        JPanel cardPanel = new JPanel();
+        cardPanel.setLayout(new MigLayout("fillx, insets 10, debug", "[grow, left] 20 [grow, right]"));
 
-    void addFlashcard(){
-        cardCount += 1;
-        currentDeck.addCard("", "", cardCount);
-
-        flashcard currentCard = currentDeck.getTail();
-       
-        JButton addFlashcardButton = new JButton("Add");
-        JButton deleteFCButton = new JButton("Delete");
-
-        JTextArea questionsArea = new JTextArea("Type your questions here...");
-        questionsArea.setLineWrap(true);
-        questionsArea.setBorder(BorderFactory.createTitledBorder("Question"));
-
-        JTextArea answersArea = new JTextArea("Type your answers here...");
-        answersArea.setLineWrap(true);
-        answersArea.setBorder(BorderFactory.createTitledBorder("Answer"));
-
-
-        questionsArea.getDocument().addDocumentListener((SimpleDocumentListener) () -> {
-            currentCard.setQuestion(questionsArea.getText());
-        });
-
-        answersArea.getDocument().addDocumentListener((SimpleDocumentListener) () -> {
-            currentCard.setAnswer(answersArea.getText());
-        });
-
-
-
-        addFlashcardButton.addActionListener(ae -> {
-            if (currentCard.getQuestion().isEmpty() || currentCard.getAnswer().isEmpty()) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "Answer and/or question must not be empty before adding a new card",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE 
-                );
-            } else {
-                addFlashcard();
-
-                cardPanel.remove(addFlashcardButton);
-
-                cardPanel.revalidate();
-                cardPanel.repaint(); 
-            }
-        });
-
-       deleteFCButton.addActionListener(ae -> {
-            if (currentCard == null) {
-                JOptionPane.showMessageDialog(null, "No card selected to delete!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-
-            boolean isDeleted = currentDeck.DeleteCardByID(currentCard.getCount());
-            if (!isDeleted) {
-                JOptionPane.showMessageDialog(null, "Failed to delete the card. Card not found!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            System.out.println(cardCount);
-            cardCount = currentDeck.listLength();
-
-            cardPanel.remove(deleteFCButton);
-            cardPanel.remove(questionsArea);
-            cardPanel.remove(answersArea);
-            cardPanel.remove(addFlashcardButton);
-
-            mainPanel.revalidate();
-            mainPanel.repaint();
-
-            JOptionPane.showMessageDialog(null, "Card deleted successfully!", "Delete Card", JOptionPane.INFORMATION_MESSAGE);
-        });
-
-        cardPanel.add(questionsArea, "growx, h 10%, align left");
-        cardPanel.add(answersArea, "growx, h 10%,align right, wrap");
-        cardPanel.add(deleteFCButton, "gap bottom 15");
-        cardPanel.add(addFlashcardButton, "align right, span, gap bottom 15");
-      
-
-
-        mainPanel.add(cardPanel, "growx, align center, wrap");
-
-        repaint();
-        revalidate();
-        
-
-
-
-    }
-
-    void loadFlashcardUI(int id){
-        flashcard currentCard = currentDeck.FindFlashcardByID(id);
-
+        flashcard currentCard = card;
         JButton addFlashcardButton = new JButton("Add");
         JButton deleteFCButton = new JButton("Delete");
 
@@ -159,6 +65,12 @@ public final class deckMode extends JFrame {
         answersArea.setLineWrap(true);
         answersArea.setBorder(BorderFactory.createTitledBorder("Answer"));
 
+
+        if ("".equals(currentCard.getQuestion())){
+            questionsArea.setText("Type your question here...");
+            answersArea.setText("Type your answers here...");
+        }
+
         questionsArea.getDocument().addDocumentListener((SimpleDocumentListener) () -> {
             currentCard.setQuestion(questionsArea.getText());
         });
@@ -166,6 +78,8 @@ public final class deckMode extends JFrame {
         answersArea.getDocument().addDocumentListener((SimpleDocumentListener) () -> {
             currentCard.setAnswer(answersArea.getText());
         });
+
+
 
         addFlashcardButton.addActionListener(ae -> {
             if (currentCard.getQuestion().isEmpty() || currentCard.getAnswer().isEmpty()) {
@@ -175,10 +89,15 @@ public final class deckMode extends JFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE 
                 );
+            } else if (currentDeck.tail.getQuestion().isEmpty() || currentDeck.tail.getAnswer().isEmpty() ){
+                 JOptionPane.showMessageDialog(
+                    null,
+                    "Answer and/or question must not be empty before adding a new card",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE 
+                );
             } else {
                 addFlashcard();
-
-                cardPanel.remove(addFlashcardButton);
 
                 cardPanel.revalidate();
                 cardPanel.repaint(); 
@@ -191,8 +110,8 @@ public final class deckMode extends JFrame {
                 return;
             }
 
-            boolean isDeleted = currentDeck.DeleteCardByID(currentCard.getCount());
 
+            boolean isDeleted = currentDeck.DeleteCardByID(currentCard.getCount());
             if (!isDeleted) {
                 JOptionPane.showMessageDialog(null, "Failed to delete the card. Card not found!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -201,34 +120,44 @@ public final class deckMode extends JFrame {
             System.out.println(cardCount);
             cardCount = currentDeck.listLength();
 
-            cardPanel.remove(deleteFCButton);
-            cardPanel.remove(questionsArea);
-            cardPanel.remove(answersArea);
-            cardPanel.remove(addFlashcardButton);
-
-            cardPanel.revalidate();
-            cardPanel.repaint();
+            mainPanel.remove(cardPanel);
+        
+            mainPanel.revalidate();
+            mainPanel.repaint();
 
             JOptionPane.showMessageDialog(null, "Card deleted successfully!", "Delete Card", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        cardPanel.add(questionsArea, "growx, h 10%, align left");
-        cardPanel.add(answersArea, "growx, h 10%, align right, wrap");
-        cardPanel.add(deleteFCButton, "gap bottom 15");
-        cardPanel.add(addFlashcardButton, "align right, span, wrap, gap bottom 15");
-      
+        cardPanel.add(questionsArea, "growx, h 15%, align left");
+        cardPanel.add(answersArea, "growx, h 15% ,align right, wrap");
+        cardPanel.add(deleteFCButton);
+        cardPanel.add(addFlashcardButton, "align right, span, wrap");
+
         cardPanel.repaint();
         cardPanel.revalidate();
+      
+
 
         mainPanel.add(cardPanel, "growx, align center, wrap");
+        mainPanel.revalidate();
+        mainPanel.repaint();
 
         repaint();
         revalidate();
+    }
+
+    void addFlashcard(){
+        currentDeck.addCard("", "", cardCount);
+        flashcard currentCard = currentDeck.getTail();
+
+        CreateFlashcard(currentCard);
+       
         
+    }
 
-
-
-    
+    void loadFlashcardUI(int id){
+        flashcard currentCard = currentDeck.FindFlashcardByID(id);
+        CreateFlashcard(currentCard);
     }
 
     void loadDeckToUI() {
@@ -261,7 +190,16 @@ public final class deckMode extends JFrame {
 
         System.out.println("Deck loaded successfully.");
     }
- 
+
+    
+    void saveDeckUI(){
+        //to be made
+        JButton SaveButton = new JButton("Save");
+
+        
+    }
+
+
 }
 
 
