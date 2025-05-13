@@ -29,13 +29,17 @@ public class menu {
     File[] allDeck = getAllDeck();
 
     public void init() {
-        frame = new JFrame("Flashnyan");
+        frame = new JFrame("Nyan Flash");
         frame.setSize(1000, 800);
         frame.getContentPane().setBackground(new Color(255, 246, 231));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(null); 
         frame.setResizable(false);
+
+        ImageIcon logoIcon = new ImageIcon ("data/img/logo.png");
+        Image logoImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        frame.setIconImage(logoImage);
 
         // BG panel (left side)
         JPanel bg = new JPanel();
@@ -70,7 +74,7 @@ public class menu {
 
         // Create image button
         JButton addbutton = new JButton(addIcon);
-        addbutton.setBounds(0, 80, 280, 100);
+        addbutton.setBounds(0, 250, 280, 100);
         addbutton.setBorderPainted(false);
         addbutton.setContentAreaFilled(false);
         addbutton.setFocusPainted(false);
@@ -79,21 +83,12 @@ public class menu {
 
         // Delete Deck Button
         JButton delbutton = new JButton(delIcon);
-        delbutton.setBounds(0, 220, 280, 150);
+        delbutton.setBounds(0, 380, 280, 150);
         delbutton.setBorderPainted(false);
         delbutton.setContentAreaFilled(false);
         delbutton.setFocusPainted(false);
         delbutton.setOpaque(false);
         bg.add(delbutton); 
-
-        // Study Mode! Button
-        JButton studbutton = new JButton(studIcon);
-        studbutton.setBounds(0, 370, 280, 150);
-        studbutton.setBorderPainted(false);
-        studbutton.setContentAreaFilled(false);
-        studbutton.setFocusPainted(false);
-        studbutton.setOpaque(false);
-        bg.add(studbutton); 
 
           // Exit Button
         JButton exitbutton = new JButton(exitIcon);
@@ -118,11 +113,11 @@ public class menu {
 
             JPanel panel = new JPanel();
             panel.setLayout(null);
-            panel.setBackground(new Color(255, 209, 220));
+            panel.setBackground(new Color(255, 203, 149));
             panel.setBounds(0, 0, 300, 150); 
             dialog.add(panel);
 
-            JLabel label = new JLabel("Enter deck name:");
+            JLabel label = new JLabel("Enter Deck Name:");
             label.setBounds(30, 20, 240, 20);
             panel.add(label);
 
