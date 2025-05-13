@@ -1,11 +1,11 @@
 package flashcard.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.Image;
-import java.awt.Color;
+import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -32,6 +32,9 @@ public class StudyMode {
         frame = new JFrame("Study mode");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ImageIcon logoIcon = new ImageIcon ("data/img/logo.png");
+        Image logoImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        frame.setIconImage(logoImage);
         
 
         current = deck.getHead();

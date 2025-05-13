@@ -43,6 +43,9 @@ public final class deckMode extends JFrame {
     }
 
     void init(deck currentDeck){
+        ImageIcon logoIcon = new ImageIcon ("data/img/logo.png");
+        Image logoImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        setIconImage(logoImage);
         
         try {
             smallTextFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/PixelType.ttf"));
