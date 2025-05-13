@@ -3,9 +3,11 @@ package flashcard.GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -29,21 +31,41 @@ public final class deckMode extends JFrame {
     private int cardCount;
     private int idCount;
     private String FileName;
+    private Font smallTextFont= null;
+    private Font boldTextFont = null;
 
     public deckMode(deck deck, String FileName){
         this.currentDeck = deck;
         this.FileName = FileName;
         this.cardCount = currentDeck.listLength();
         init(currentDeck);
+        
     }
 
     void init(deck currentDeck){
+        
+        try {
+            smallTextFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/PixelType.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(smallTextFont);
+            smallTextFont = smallTextFont.deriveFont(24f);
+
+            boldTextFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/CutePixel.ttf"));
+            GraphicsEnvironment ge1 = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge1.registerFont(boldTextFont);
+            boldTextFont = boldTextFont.deriveFont(25f);
+
+
+
+        } catch (Exception e) {
+            System.err.println("Font did not load properly");
+        }
+
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
         setLayout(new BorderLayout());
-
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout("fillx, insets 20"));
@@ -51,10 +73,9 @@ public final class deckMode extends JFrame {
         scrollPane = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
 
-        UtilityUI();
 
-        add(scrollPane);
-        
+        UtilityUI();
+        add(scrollPane);      
         loadDeckToUI();
         checkForID();
 
@@ -87,9 +108,9 @@ public final class deckMode extends JFrame {
         JTextArea questionsArea = new JTextArea(currentCard.getQuestion());
         TitledBorder titledBorder = BorderFactory.createTitledBorder(
         BorderFactory.createLineBorder(new Color(148, 120, 113), 3), "Question");
-        titledBorder.setTitleFont(new Font("SansSerif", Font.BOLD, 16));
+        
+        
 
-        questionsArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
         questionsArea.setBorder(titledBorder);
         questionsArea.setWrapStyleWord(true);
         questionsArea.setLineWrap(true);
@@ -111,10 +132,9 @@ public final class deckMode extends JFrame {
         JTextArea answersArea = new JTextArea(currentCard.getAnswer());
         TitledBorder titleddBorder = BorderFactory.createTitledBorder(
         BorderFactory.createLineBorder(new Color(148, 120, 113), 3), "Answer");
-        titleddBorder.setTitleFont(new Font("SansSerif", Font.BOLD, 16));
+
 
         answersArea.setBorder(titleddBorder);
-        answersArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
         answersArea.setWrapStyleWord(true);
         answersArea.setLineWrap(true);
 
@@ -166,6 +186,22 @@ public final class deckMode extends JFrame {
 
             JOptionPane.showMessageDialog(null, "Card deleted successfully!", "Delete Card", JOptionPane.INFORMATION_MESSAGE);
         });
+
+        if (smallTextFont == null || boldTextFont == null){
+            titledBorder.setTitleFont(new Font("SansSerif", Font.BOLD, 16));
+            questionsArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
+
+            titleddBorder.setTitleFont(new Font("SansSerif", Font.BOLD, 16));   
+            answersArea.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            
+        } else {
+            titledBorder.setTitleFont(boldTextFont);
+            questionsArea.setFont(smallTextFont);
+
+            titleddBorder.setTitleFont(boldTextFont);   
+            answersArea.setFont(smallTextFont);
+            
+        }
 
         cardPanel.add(questionsArea, "growx, h 15%, align left");
         cardPanel.add(answersArea, "growx, h 15% ,align right, wrap");
@@ -242,7 +278,6 @@ public final class deckMode extends JFrame {
             }
     }
 
-    
     void UtilityUI(){
 
         //Save Button

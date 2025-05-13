@@ -4,6 +4,8 @@ package flashcard.GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.io.File;
 
@@ -33,6 +35,7 @@ public class menu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(null); 
+        frame.setResizable(false);
 
         // BG panel (left side)
         JPanel bg = new JPanel();
@@ -170,8 +173,11 @@ public class menu {
         frame.setVisible(true);
     }
 
-   void ViewAllDeck() {
+    void ViewAllDeck() {
         System.out.println("View all deck has ran");
+
+       
+       
 
         // Create the main deck panel
         JPanel deckPanel = new JPanel();
@@ -187,22 +193,36 @@ public class menu {
         int panelHeight = 150; // Height of each file panel
         int gap = 0; // Gap between panels
 
+        Font fileTextFont= null;
+
+        try {
+            fileTextFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/font/PixelType.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(fileTextFont);
+            fileTextFont = fileTextFont.deriveFont(22f);
+
+
+
+        } catch (Exception e) {
+            System.err.println("Font did not load properly");
+        }
+
         // Iterate through each file and create its corresponding panel
         for (File file : DeckList) {
-            System.out.println(file.getName());
+            
 
-            // Create a panel for each file
             JPanel filePanel = new JPanel();
             filePanel.setLayout(new MigLayout("inset 50 20 50 20, gap 0", "[grow]", "[center]")); // Null layout for the file panel
             filePanel.setBounds(x, y, panelWidth, panelHeight); // Position each file panel 
 
             // Create the file icon button
             JButton fileIcon = new JButton(newFileIcon); // Replace "Icon" with your image icon
-            fileIcon.setOpaque(false); // Makes the button transparent
+            fileIcon.setOpaque(true); // Makes the button transparent
             fileIcon.setContentAreaFilled(false); // Removes the content area
             fileIcon.setBorderPainted(false); // Removes the border
             fileIcon.setFocusPainted(true);
 
+            //file icon action listener opens up file
             fileIcon.addActionListener(e -> {
                 deck newDeck = new deck();
                 FileManager openFile = new FileManager(newDeck);
@@ -217,6 +237,10 @@ public class menu {
             fileName.setEditable(false); // Make it non-editable like a label
             fileName.setOpaque(false); // Make the background transparent
             fileName.setPreferredSize(new Dimension(80, 40)); // Set preferred size
+
+            if (fileTextFont != null){
+                fileName.setFont(fileTextFont);
+            }
 
             // Add components to the file panel
             filePanel.add(fileIcon, "wrap");
