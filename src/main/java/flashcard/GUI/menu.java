@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.io.File;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -26,7 +28,7 @@ import net.miginfocom.swing.MigLayout;
 public class menu {
     ImageIcon newFileIcon;
     JFrame frame;
-    File[] allDeck = getAllDeck();
+    JScrollPane scrollPane;
 
     public void init() {
         frame = new JFrame("Nyan Flash");
@@ -171,13 +173,14 @@ public class menu {
     void ViewAllDeck() {
         System.out.println("View all deck has ran");
 
-       
-       
-
         // Create the main deck panel
         JPanel deckPanel = new JPanel();
         deckPanel.setLayout(null); // Null layout
-        deckPanel.setBounds(350, 0, 650, 1000); // Set location and size of the panel
+        deckPanel.setBounds(350, 0, 650, 780); // Set location and size of the panel
+
+        scrollPane = new JScrollPane(deckPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
+        scrollPane.setBounds(350, 0, 650, 780);
 
         // Get the list of files (Decks)
         File[] DeckList = getAllDeck();
@@ -204,8 +207,7 @@ public class menu {
 
         // Iterate through each file and create its corresponding panel
         for (File file : DeckList) {
-            
-
+        
             JPanel filePanel = new JPanel();
             filePanel.setLayout(new MigLayout("inset 50 20 50 20, gap 0", "[grow]", "[center]")); // Null layout for the file panel
             filePanel.setBounds(x, y, panelWidth, panelHeight); // Position each file panel 
@@ -246,33 +248,42 @@ public class menu {
 
             // Update x and y for the next panel
             x += panelWidth + gap;
-            if (x + panelWidth > deckPanel.getWidth()) { // Move to the next row if out of bounds
-                x = 30;
-                y += panelHeight + gap;
+            if (x + panelWidth > 650) { // Assuming 650 is the fixed width of the deck panel
+                x = 30; // Reset to starting x position
+                y += panelHeight + gap; // Move to the next row
             }
+
+            int totalHeight = y + panelHeight + gap;
+            deckPanel.setPreferredSize(new Dimension(650, totalHeight));
+            deckPanel.revalidate(); // Revalidate to ensure the JScrollPane updates
         }
 
         // Add the deck panel to the frame
-        frame.add(deckPanel);
+        frame.add(scrollPane);
 
         // Refresh the frame
         frame.revalidate();
         frame.repaint();
     }
 
-    public File[] getAllDeck(){
+    public File[] getAllDeck() {
         String filePath = "data/decks/";
         File directory = new File(filePath);
 
-       if (!directory.exists() || !directory.isDirectory()) {
-        System.err.println("Directory does not exist or is invalid: " + filePath);
-        return new File[0]; // Return empty array
+        if (!directory.exists() || !directory.isDirectory()) {
+            System.err.println("Directory does not exist or is invalid: " + filePath);
+            return new File[0]; // Return empty array
         }
 
         File[] allDecks = directory.listFiles(File::isFile);
 
+        if (allDecks != null) {
+            // Sort the files by last modified date in descending order
+            Arrays.sort(allDecks, (file1, file2) -> Long.compare(file2.lastModified(), file1.lastModified()));
+        }
+
         return allDecks;
-    }
+}
 
     public void refreshFrame(){
         frame.dispose();
