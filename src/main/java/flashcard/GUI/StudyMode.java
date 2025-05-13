@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.Image;
+import java.awt.Color;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -61,18 +64,38 @@ public class StudyMode {
         answerLabel.setVerticalAlignment(SwingConstants.CENTER);
 
         
+        //Show Answer Button
+        ImageIcon ansIcon = new ImageIcon("data/img/ans.png");
+        Image ansImg = ansIcon.getImage().getScaledInstance(280, 100, Image.SCALE_SMOOTH);
+        ImageIcon ansShowIcon = new ImageIcon(ansImg);
 
-        JButton showAnswerButton = new JButton("Show answer");
+        JButton showAnswerButton = new JButton(ansShowIcon);
+        showAnswerButton.setBorderPainted(false);
+        showAnswerButton.setContentAreaFilled(false);
+        showAnswerButton.setFocusPainted(false);
+        showAnswerButton.setOpaque(false);
         showAnswerButton.setVerticalAlignment(SwingConstants.CENTER);
 
-        JButton nextQuestionButton = new JButton("Next question");
+
+        //Next question Button
+        ImageIcon nextIcon = new ImageIcon("data/img/next.png");
+        Image nextImg = nextIcon.getImage().getScaledInstance(330, 100, Image.SCALE_SMOOTH);
+        ImageIcon nextQuestIcon = new ImageIcon(nextImg);
+
+        JButton nextQuestionButton = new JButton(nextQuestIcon);
+        nextQuestionButton.setBorderPainted(false);
+        nextQuestionButton.setContentAreaFilled(false);
+        nextQuestionButton.setFocusPainted(false);
+        nextQuestionButton.setOpaque(false);
         nextQuestionButton.setVerticalAlignment(SwingConstants.CENTER);
+
 
         JPanel bottomPanel = new JPanel();
         
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.add(Box.createVerticalStrut(200));
         bottomPanel.add(showAnswerButton);
+        bottomPanel.setBackground(new Color(248, 226, 190));
         studyPanel.add(questionLabel, BorderLayout.CENTER);
         studyPanel.add(bottomPanel, BorderLayout.SOUTH);
 

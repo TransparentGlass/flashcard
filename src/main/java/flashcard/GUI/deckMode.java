@@ -259,6 +259,7 @@ public final class deckMode extends JFrame {
         SaveButton.addActionListener(s -> {
             saveDeck();
         });
+        
         //Add Button
         ImageIcon addIcon = new ImageIcon("data/img/1.png");
         Image addImg = addIcon.getImage().getScaledInstance(100, 35, Image.SCALE_SMOOTH);
@@ -289,7 +290,16 @@ public final class deckMode extends JFrame {
         }
         );
 
-        JButton StudyModeButton = new JButton("Study Mode");
+        //Study Mode Button
+        ImageIcon studIcon = new ImageIcon("data/img/studmode.png");
+        Image studImg = studIcon.getImage().getScaledInstance(130, 40, Image.SCALE_SMOOTH);
+        ImageIcon studModeIcon = new ImageIcon(studImg);
+
+        JButton StudyModeButton = new JButton(studModeIcon);
+        StudyModeButton.setBorderPainted(false);
+        StudyModeButton.setContentAreaFilled(false);
+        StudyModeButton.setFocusPainted(false);
+        StudyModeButton.setOpaque(false);
 
         StudyModeButton.addActionListener(ae -> {
             if (this.currentDeck.isEmpty()){
@@ -303,7 +313,16 @@ public final class deckMode extends JFrame {
         }
         );
 
-        JButton backButton = new JButton("Back to menu");
+        //Back to Menu Button
+        ImageIcon menuIcon = new ImageIcon("data/img/menu.png");
+        Image menuImg = menuIcon.getImage().getScaledInstance(130, 40, Image.SCALE_SMOOTH);
+        ImageIcon backmenuIcon = new ImageIcon(menuImg);
+
+        JButton backButton = new JButton(backmenuIcon);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
+        backButton.setOpaque(false);
 
         backButton.addActionListener(b -> {
             dispose();
