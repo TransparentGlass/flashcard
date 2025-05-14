@@ -29,8 +29,8 @@ public class StudyMode {
         JLabel answerLabel;
     
     public StudyMode(deck deck){
-        frame = new JFrame("Study mode");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JFrame("Meowmory: Study mode");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         ImageIcon logoIcon = new ImageIcon ("data/img/logo.png");
         Image logoImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH);

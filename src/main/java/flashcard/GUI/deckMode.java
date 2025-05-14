@@ -64,8 +64,9 @@ public final class deckMode extends JFrame {
             System.err.println("Font did not load properly");
         }
 
+        setTitle("Meowmory: Deck mode");
         setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
         setLayout(new BorderLayout());
@@ -345,7 +346,7 @@ public final class deckMode extends JFrame {
                 
             } else {
                 saveDeck();
-                StudyMode goStudyMode = new StudyMode(this.currentDeck);
+                new StudyMode(this.currentDeck);
             }
             
         }
