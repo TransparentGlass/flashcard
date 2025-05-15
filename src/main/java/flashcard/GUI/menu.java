@@ -1,16 +1,13 @@
 
 package flashcard.GUI;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Arrays;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import flashcard.FileManager;
 import flashcard.deck;
@@ -52,6 +50,15 @@ public class menu {
         bg.setBackground(new Color(248, 226, 190)); // pastel yellow
         bg.setBounds(0, 0, 350, 1500);
         frame.add(bg);
+
+        // Logo
+        ImageIcon meowicon = new ImageIcon("data/img/meowmory.png");
+        Image meowmoryImg = meowicon.getImage().getScaledInstance(330, 130, Image.SCALE_SMOOTH);
+        ImageIcon meowIcon = new ImageIcon(meowmoryImg);
+
+        JLabel meowLabel = new JLabel(meowIcon);
+        meowLabel.setBounds(15, 10, 330, 140);
+        bg.add(meowLabel);
 
         // Load and scale ADD image
         ImageIcon addicon = new ImageIcon("data/img/menu sprites/CreateNewDeck.png");
@@ -159,6 +166,11 @@ public class menu {
         frame.repaint();
 
         frame.setVisible(true);
+    }
+
+    private void add(JLabel meowLabel) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'add'");
     }
 
     void ViewAllDeck() {
@@ -273,41 +285,111 @@ public class menu {
         frame.repaint();
     }
 
-    void deleteDeck(JButton deleteButton){
-        
-        deleteButton.addActionListener(e -> {
 
-            if (selectedButton == null || selectedButtonFile == null){
-                JOptionPane.showMessageDialog(null,
-                "Press a deck and then delete.", "",JOptionPane.DEFAULT_OPTION);
+    void deleteDeck(JButton deleteButton){
+        deleteButton.addActionListener(e -> {
+            Color customColor = new Color(255, 203, 149);
+
+            // Check if no deck selected
+            if (selectedButton == null || selectedButtonFile == null) {
+                CustomMessage("Press a deck and then delete.", "", customColor);
                 return;
             }
-            int result = JOptionPane.showConfirmDialog(null,
-             "Do you want to delete " + selectedButtonFile.getName() + " ?", "Delete deck", 
-            JOptionPane.YES_NO_OPTION, 
-            JOptionPane.QUESTION_MESSAGE);
 
-            switch (result) {
-                case JOptionPane.YES_OPTION:
-                    if (selectedButton != null || selectedButtonFile != null){
+            // Custom confirmation dialog
+            int result = ConfirmDia("Do you want to delete \"" + selectedButtonFile.getName() + "\"?", "Delete Deck", customColor);
+            if (result == JOptionPane.YES_OPTION) {
+                if (selectedButton != null && selectedButtonFile != null) {
                     deck newdDeck = new deck();
                     FileManager openFile = new FileManager(newdDeck);
-                        if (openFile.deleteFile(selectedButtonFile.getName())){
-                            JOptionPane.showMessageDialog(null, "Deleted deck!", "Delete deck", JOptionPane.DEFAULT_OPTION);
-                            refreshFrame();
-                        };
-
+                    if (openFile.deleteFile(selectedButtonFile.getName())) {
+                        CustomMessage("Deleted deck!", "Deleted", customColor);
+                        refreshFrame();
                     }
-                    break;
-
-                case JOptionPane.NO_OPTION:
-                    break;
-
-                default:
-                    throw new AssertionError();
+                }
             }
         });
     }
+
+    int ConfirmDia(String message, String title, Color bgColor) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle(title);
+        dialog.setModal(true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setSize(400, 150);
+        dialog.setLocationRelativeTo(null);
+
+        ImageIcon icon = new ImageIcon("data/img/logo.png");  
+        dialog.setIconImage(icon.getImage());
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(bgColor);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel label = new JLabel(message, SwingConstants.CENTER);
+        panel.add(label, BorderLayout.CENTER);
+
+        // Buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(bgColor);
+
+        JButton yesButton = new JButton("Yes");
+        JButton noButton = new JButton("No");
+
+        final int[] result = {JOptionPane.CLOSED_OPTION};
+
+        yesButton.addActionListener(e -> {
+            result[0] = JOptionPane.YES_OPTION;
+            dialog.dispose();
+        });
+
+        noButton.addActionListener(e -> {
+            result[0] = JOptionPane.NO_OPTION;
+            dialog.dispose();
+        });
+
+        buttonPanel.add(yesButton);
+        buttonPanel.add(noButton);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setContentPane(panel);
+        dialog.setVisible(true);
+
+        return result[0];
+    }
+
+    void CustomMessage(String message, String title, Color bgColor) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle(title);
+        dialog.setModal(true);
+        dialog.setSize(300, 150);
+        dialog.setLocationRelativeTo(null);
+
+        ImageIcon icon = new ImageIcon("data/img/logo.png");  
+        dialog.setIconImage(icon.getImage());
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(bgColor);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel label = new JLabel(message, SwingConstants.CENTER);
+
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> dialog.dispose());
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(bgColor);
+        buttonPanel.add(okButton);
+
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setContentPane(panel);
+        dialog.setVisible(true);
+    }
+
+
+
 
     public File[] getAllDeck() {
         String filePath = "data/decks/";
