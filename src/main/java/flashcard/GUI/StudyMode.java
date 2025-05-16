@@ -155,13 +155,7 @@ public class StudyMode {
         
 
         frame.setVisible(true);
-
-
-        
-
-
-
-        
+   
     }
     
 

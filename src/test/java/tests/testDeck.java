@@ -1,4 +1,4 @@
-package flashcard.tests;
+package tests;
 
 import flashcard.deck;
 

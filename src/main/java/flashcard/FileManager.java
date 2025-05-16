@@ -128,11 +128,4 @@ public class FileManager {
     public boolean isDeckEmpty(deck deck){
         return deck.head == null;
     }
-
-
-    
-    
-
-
-    
 }
